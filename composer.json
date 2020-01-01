@@ -19,12 +19,16 @@
     },
     "require": {
         "php": ">=7.2",
-        "ext-swoole": ">=4.4"
+        "ext-swoole": ">=4.4",
+        "hyperf/utils": "1.1.*",
+        "nesbot/carbon": "^2.0",
+        "psr/container": "^1.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
-        "phpstan/phpstan": "^0.10.5",
         "hyperf/testing": "1.1.*",
+        "mockery/mockery": "^1.3",
+        "phpstan/phpstan": "^0.10.5",
         "swoft/swoole-ide-helper": "dev-master"
     },
     "config": {
