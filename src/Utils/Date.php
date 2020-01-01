@@ -26,10 +26,6 @@ class Date
             return Carbon::createFromTimestamp($date);
         }
 
-        try {
-            return Carbon::make($date);
-        } catch (\Throwable $exception) {
-            throw new RuntimeException('date is invalid.');
-        }
+        return Carbon::make($date);
     }
 }
