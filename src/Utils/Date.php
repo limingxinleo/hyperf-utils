@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace HyperfX\Utils\Utils;
 
 use Carbon\Carbon;
-use HyperfX\Utils\Exception\RuntimeException;
 
 class Date
 {
