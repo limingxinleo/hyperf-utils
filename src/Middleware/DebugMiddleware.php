@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace HyperfX\Utils\Middleware;
 
+use Hyperf\HttpServer\Request;
 use Hyperf\Logger\LoggerFactory;
+use Hyperf\Utils\Codec\Json;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -42,7 +44,7 @@ class DebugMiddleware implements MiddlewareInterface
         $time = microtime(true) - $time;
         $debug = 'URI: ' . $request->getUri()->getPath() . PHP_EOL;
         $debug .= 'TIME: ' . $time . PHP_EOL;
-        $debug .= 'REQUEST: ' . $request->getBody()->getContents() . PHP_EOL;
+        $debug .= 'REQUEST: ' . $this->getRequestString() . PHP_EOL;
         $debug .= 'RESPONSE: ' . $response->getBody()->getContents() . PHP_EOL;
 
         if ($time > 1) {
@@ -52,5 +54,12 @@ class DebugMiddleware implements MiddlewareInterface
         }
 
         return $response;
+    }
+
+    protected function getRequestString(): string
+    {
+        $data = $this->container->get(Request::class)->all();
+
+        return Json::encode($data);
     }
 }
