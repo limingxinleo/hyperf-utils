@@ -17,9 +17,9 @@ use Carbon\Carbon;
 class Date
 {
     /**
-     * @param int|string $date
+     * @param null|int|string $date
      */
-    public function load($date): Carbon
+    public function load($date): ?Carbon
     {
         if (is_int($date)) {
             return Carbon::createFromTimestamp($date);

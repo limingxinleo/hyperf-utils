@@ -28,5 +28,11 @@ class DateTest extends AbstractTestCase
 
         $carbon = $util->load(0);
         $this->assertSame('1970-01-01 08:00:00', $carbon->toDateTimeString());
+
+        $carbon = $util->load('');
+        $this->assertNull($carbon);
+
+        $carbon = $util->load(null);
+        $this->assertNull($carbon);
     }
 }
