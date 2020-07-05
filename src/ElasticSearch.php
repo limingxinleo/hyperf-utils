@@ -15,7 +15,7 @@ use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
-use Hyperf\DbConnection\Model\Model;
+use Hyperf\Database\Model\Model;
 use Hyperf\Guzzle\RingPHP\PoolHandler;
 use HyperfX\Utils\Exception\InvalidArgumentException;
 use Psr\Container\ContainerInterface;
@@ -116,7 +116,7 @@ abstract class ElasticSearch
             $client->update($doc);
         } catch (\Throwable $ex) {
             $logger = $this->container->get(StdoutLoggerInterface::class);
-            $logger->error(format_throwable($ex));
+            $logger->error((string) $ex);
         }
 
         return true;
@@ -140,7 +140,7 @@ abstract class ElasticSearch
             $client->delete($doc);
         } catch (\Throwable $ex) {
             $logger = $this->container->get(StdoutLoggerInterface::class);
-            $logger->error(format_throwable($ex));
+            $logger->error((string) $ex);
         }
 
         return true;
