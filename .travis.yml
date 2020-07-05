@@ -5,13 +5,13 @@ sudo: required
 matrix:
   include:
     - php: 7.2
-      env: SW_VERSION="4.4.14"
+      env: SW_VERSION="4.5.2"
     - php: 7.3
-      env: SW_VERSION="4.4.14"
+      env: SW_VERSION="4.5.2"
     - php: 7.4
-      env: SW_VERSION="4.4.14"
+      env: SW_VERSION="4.5.2"
     - php: master
-      env: SW_VERSION="4.4.14"
+      env: SW_VERSION="4.5.2"
 
   allow_failures:
     - php: master
@@ -32,6 +32,7 @@ install:
   - bash ./tests/swoole.install.sh
   - phpenv config-rm xdebug.ini || echo "xdebug not available"
   - phpenv config-add ./tests/ci.ini
+  - docker run -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" --name elasticsearch elasticsearch:5-alpine
 
 before_script:
   - cd $TRAVIS_BUILD_DIR
