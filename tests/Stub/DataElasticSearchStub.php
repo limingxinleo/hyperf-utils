@@ -19,10 +19,10 @@ class DataElasticSearchStub extends ElasticSearch
     public function mapping(): array
     {
         return [
-            'id' => 'long',
-            'type' => 'byte',
-            'message' => 'text',
-            'keyword' => 'keyword',
+            'id' => ['type' => 'long'],
+            'type' => ['type' => 'byte'],
+            'message' => ['type' => 'text'],
+            'keyword' => ['type' => 'keyword'],
         ];
     }
 

@@ -37,6 +37,7 @@ install:
 before_script:
   - cd $TRAVIS_BUILD_DIR
   - composer config -g process-timeout 900 && composer update
+  - php tests/setup_elasticsearch.php
 
 script:
   - composer analyse

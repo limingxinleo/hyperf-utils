@@ -13,6 +13,8 @@ namespace HyperfTest\Stub;
 
 use Hyperf\Config\Config;
 use Hyperf\Contract\ConfigInterface;
+use Hyperf\Contract\StdoutLoggerInterface;
+use Hyperf\Framework\Logger\StdoutLogger;
 use Hyperf\Utils\ApplicationContext;
 use Mockery;
 use Psr\Container\ContainerInterface;
@@ -24,7 +26,15 @@ class ContainerStub
         $container = Mockery::mock(ContainerInterface::class);
         ApplicationContext::setContainer($container);
 
-        $container->shouldReceive('get')->with(ConfigInterface::class)->andReturn(new Config());
+        $config = new Config([
+            'elasticsearch' => [
+                'default' => [
+                    'host' => ['127.0.0.1:9200'],
+                ],
+            ],
+        ]);
+        $container->shouldReceive('get')->with(ConfigInterface::class)->andReturn($config);
+        $container->shouldReceive('get')->with(StdoutLoggerInterface::class)->andReturn(new StdoutLogger($config));
 
         return $container;
     }

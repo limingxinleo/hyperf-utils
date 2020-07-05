@@ -39,6 +39,11 @@ abstract class ElasticSearch
 
     protected $handler;
 
+    /**
+     * @var null|Client
+     */
+    protected $client;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -49,15 +54,19 @@ abstract class ElasticSearch
             throw new InvalidArgumentException('搜索引擎配置不存在');
         }
 
-        $this->hosts = [$config['host']];
+        $this->hosts = (array) $config['host'];
     }
 
     public function client(): Client
     {
-        return ClientBuilder::create()
-            ->setHandler($this->handler())
-            ->setHosts($this->hosts)
-            ->build();
+        if (! $this->client instanceof Client) {
+            $this->client = ClientBuilder::create()
+                ->setHandler($this->handler())
+                ->setHosts($this->hosts)
+                ->build();
+        }
+
+        return $this->client;
     }
 
     public function handler()
@@ -168,6 +177,48 @@ abstract class ElasticSearch
         }
 
         return [0, []];
+    }
+
+    public function putIndex(bool $force = false): bool
+    {
+        $client = $this->client();
+        $indices = $client->indices();
+
+        $params = [
+            'index' => $this->index(),
+        ];
+        $exist = $indices->exists($params);
+        if ($exist && $force !== false) {
+            $indices->delete($params);
+            $exist = false;
+        }
+
+        if (! $exist) {
+            $indices->create($params);
+            return true;
+        }
+
+        return false;
+    }
+
+    public function putMapping(): bool
+    {
+        $mapping = $this->mapping();
+        $params = [
+            'index' => $this->index(),
+            'type' => $this->type(),
+            'body' => [
+                'properties' => $mapping,
+            ],
+        ];
+
+        $indices = $this->client()->indices();
+        $res = $indices->putMapping($params);
+        if ($res['acknowledged']) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
