@@ -9,6 +9,8 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-date_default_timezone_set('Asia/Shanghai');
+namespace HyperfX\Utils\Exception;
 
-require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+class InvalidArgumentException extends \InvalidArgumentException
+{
+}
