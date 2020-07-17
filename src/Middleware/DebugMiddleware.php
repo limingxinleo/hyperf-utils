@@ -35,21 +35,29 @@ class DebugMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $time = microtime(true);
-        $response = $handler->handle($request);
+        try {
+            $response = $handler->handle($request);
+        } catch (\Throwable $exception) {
+            throw $exception;
+        } finally {
+            $logger = $this->container->get(LoggerFactory::class)->get('request');
 
-        $logger = $this->container->get(LoggerFactory::class)->get('request');
+            // 日志
+            $time = microtime(true) - $time;
+            $debug = 'URI: ' . $request->getUri()->getPath() . PHP_EOL;
+            $debug .= 'TIME: ' . $time . PHP_EOL;
+            $debug .= 'REQUEST: ' . $this->getRequestString() . PHP_EOL;
+            if (isset($response)) {
+                $debug .= 'RESPONSE: ' . $response->getBody()->getContents() . PHP_EOL;
+            } else {
+                $debug .= 'EXCEPTION: ' . $exception->getMessage() . PHP_EOL;
+            }
 
-        // 日志
-        $time = microtime(true) - $time;
-        $debug = 'URI: ' . $request->getUri()->getPath() . PHP_EOL;
-        $debug .= 'TIME: ' . $time . PHP_EOL;
-        $debug .= 'REQUEST: ' . $this->getRequestString() . PHP_EOL;
-        $debug .= 'RESPONSE: ' . $response->getBody()->getContents() . PHP_EOL;
-
-        if ($time > 1) {
-            $logger->error($debug);
-        } else {
-            $logger->info($debug);
+            if ($time > 1) {
+                $logger->error($debug);
+            } else {
+                $logger->info($debug);
+            }
         }
 
         return $response;
