@@ -5,7 +5,7 @@ declare(strict_types=1);
  * This file is part of Hyperf.
  *
  * @link     https://www.hyperf.io
- * @document https://doc.hyperf.io
+ * @document https://hyperf.wiki
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
@@ -33,5 +33,11 @@ class DateTest extends AbstractTestCase
 
         $carbon = $util->load(null);
         $this->assertNull($carbon);
+
+        $carbon = $util->load(1577836800);
+        $this->assertSame(1577836800, $carbon->getTimestamp());
+
+        $carbon = $util->load('1577836800');
+        $this->assertSame(1577836800, $carbon->getTimestamp());
     }
 }
