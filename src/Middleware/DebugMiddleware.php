@@ -48,8 +48,9 @@ class DebugMiddleware implements MiddlewareInterface
             $debug .= 'TIME: ' . $time . PHP_EOL;
             $debug .= 'REQUEST: ' . $this->getRequestString($request) . PHP_EOL;
             if (isset($response)) {
-                $debug .= 'RESPONSE: ' . $response->getBody()->getContents() . PHP_EOL;
-            } else {
+                $debug .= 'RESPONSE: ' . $this->getResponseString($response) . PHP_EOL;
+            }
+            if (isset($exception) && $exception instanceof \Throwable) {
                 $debug .= 'EXCEPTION: ' . $exception->getMessage() . PHP_EOL;
             }
 
@@ -61,6 +62,11 @@ class DebugMiddleware implements MiddlewareInterface
         }
 
         return $response;
+    }
+
+    protected function getResponseString(ResponseInterface $response): string
+    {
+        return $response->getBody()->getContents();
     }
 
     protected function getRequestString(ServerRequestInterface $request): string
