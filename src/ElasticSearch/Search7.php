@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace HyperfX\Utils;
+namespace HyperfX\Utils\ElasticSearch;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
@@ -20,9 +20,9 @@ use Hyperf\Guzzle\RingPHP\PoolHandler;
 use HyperfX\Utils\Exception\InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 
-abstract class ElasticSearch
+abstract class Search7
 {
-    const VERSION = 5;
+    const VERSION = 7;
 
     /**
      * @var ContainerInterface
@@ -118,7 +118,6 @@ abstract class ElasticSearch
             $client = $this->client();
             $doc = [
                 'index' => $this->index(),
-                'type' => $this->type(),
                 'id' => $id,
                 'body' => [
                     'doc' => $doc,
@@ -146,7 +145,6 @@ abstract class ElasticSearch
 
         $doc = [
             'index' => $this->index(),
-            'type' => $this->type(),
             'id' => $id,
         ];
 
@@ -166,7 +164,6 @@ abstract class ElasticSearch
 
         $params = [
             'index' => $this->index(),
-            'type' => $this->type(),
             'body' => $body,
         ];
 
@@ -211,7 +208,6 @@ abstract class ElasticSearch
         $mapping = $this->mapping();
         $params = [
             'index' => $this->index(),
-            'type' => $this->type(),
             'body' => [
                 'properties' => $mapping,
             ],
@@ -235,11 +231,6 @@ abstract class ElasticSearch
      * 搜索引擎索引.
      */
     abstract public function index(): string;
-
-    /**
-     * 搜索引擎类型.
-     */
-    abstract public function type(): string;
 
     /**
      * 根据模型获取对应document，如果数据字段不一致，请重写此方法.
