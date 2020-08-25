@@ -10,7 +10,10 @@
     "autoload": {
         "psr-4": {
             "HyperfX\\Utils\\": "src/"
-        }
+        },
+        "files": [
+            "src/Functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
