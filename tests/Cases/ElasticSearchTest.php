@@ -21,7 +21,7 @@ use HyperfTest\Stub\Model;
  */
 class ElasticSearchTest extends AbstractTestCase
 {
-    protected function tearDown()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

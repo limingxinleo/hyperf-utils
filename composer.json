@@ -47,6 +47,8 @@
         "hyperf/logger": "Required to use DebugMiddleware. (2.1.*)",
         "hyperf/http-server": "Required to use DebugMiddleware. (2.1.*)"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "sort-packages": true
     },
