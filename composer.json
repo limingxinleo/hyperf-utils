@@ -22,7 +22,6 @@
     },
     "require": {
         "php": ">=7.2",
-        "ext-swoole": ">=4.4",
         "hyperf/utils": "2.1.*",
         "nesbot/carbon": "^2.0",
         "psr/container": "^1.0"
