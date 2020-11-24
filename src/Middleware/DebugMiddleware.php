@@ -66,7 +66,7 @@ class DebugMiddleware implements MiddlewareInterface
 
     protected function getResponseString(ResponseInterface $response): string
     {
-        return $response->getBody()->getContents();
+        return (string) $response->getBody();
     }
 
     protected function getRequestString(ServerRequestInterface $request): string
