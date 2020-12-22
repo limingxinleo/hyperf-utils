@@ -10,14 +10,20 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 require_once 'bootstrap.php';
+
 use HyperfTest\Stub\ContainerStub;
 use HyperfTest\Stub\DataElasticSearchStub;
 
-run(function () {
+$callback = function () {
     $container = ContainerStub::getContainer();
     $client = new DataElasticSearchStub($container);
     $client->putIndex(true);
     $client->putMapping();
 
     Mockery::close();
-});
+};
+if (extension_loaded('swoole')) {
+    run($callback);
+} else {
+    $callback();
+}
