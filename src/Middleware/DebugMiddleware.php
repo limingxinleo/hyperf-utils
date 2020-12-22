@@ -46,6 +46,9 @@ class DebugMiddleware implements MiddlewareInterface
             $time = microtime(true) - $time;
             $debug = 'URI: ' . $request->getUri()->getPath() . PHP_EOL;
             $debug .= 'TIME: ' . $time . PHP_EOL;
+            if ($customData = $this->getCustomData()) {
+                $debug .= 'DATA: ' . $customData . PHP_EOL;
+            }
             $debug .= 'REQUEST: ' . $this->getRequestString($request) . PHP_EOL;
             if (isset($response)) {
                 $debug .= 'RESPONSE: ' . $this->getResponseString($response) . PHP_EOL;
@@ -74,5 +77,10 @@ class DebugMiddleware implements MiddlewareInterface
         $data = $this->container->get(Request::class)->all();
 
         return Json::encode($data);
+    }
+
+    protected function getCustomData(): string
+    {
+        return '';
     }
 }
