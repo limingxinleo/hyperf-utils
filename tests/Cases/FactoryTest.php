@@ -11,6 +11,8 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
+use Hyperf\Database\Model\Collection;
+use HyperfTest\Stub\Model as ModelStub;
 use HyperfX\Utils\Exception\NotFoundException;
 use HyperfX\Utils\Exception\RuntimeException;
 use HyperfX\Utils\Factory;
@@ -41,5 +43,16 @@ class FactoryTest extends AbstractTestCase
 
         $this->expectException(NotFoundException::class);
         $facotry->xxx;
+    }
+
+    public function testModelColumn()
+    {
+        $col = new Collection([
+            new ModelStub(['message' => $id = uniqid()]),
+            new ModelStub(['message' => $id2 = uniqid()]),
+        ]);
+
+        $result = (new Model())->column($col, 'message');
+        $this->assertSame([$id, $id2], $result);
     }
 }
