@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace HyperfTest\Cases;
 
 use Hyperf\Database\Model\Collection;
+use Hyperf\Utils\Collection as BaseCollection;
 use HyperfTest\Stub\Model as ModelStub;
 use HyperfX\Utils\Exception\NotFoundException;
 use HyperfX\Utils\Exception\RuntimeException;
@@ -52,7 +53,11 @@ class FactoryTest extends AbstractTestCase
             new ModelStub(['message' => $id2 = uniqid()]),
         ]);
 
-        $result = (new Model())->column($col, 'message');
-        $this->assertSame([$id, $id2], $result);
+        $result = (new Model())->columns($col, 'message');
+        $this->assertInstanceOf(BaseCollection::class, $result);
+        $this->assertSame([$id, $id2], $result->toArray());
+
+        $result = (new Model())->columns($col, ['message']);
+        $this->assertSame([['message' => $id], ['message' => $id2]], $result->toArray());
     }
 }

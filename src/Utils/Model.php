@@ -13,6 +13,8 @@ namespace HyperfX\Utils\Utils;
 
 use Hyperf\Database\Model\Builder;
 use Hyperf\Database\Model\Collection;
+use Hyperf\Utils\Collection as BaseCollection;
+use Hyperf\Utils\Contracts\Arrayable;
 
 class Model
 {
@@ -30,13 +32,35 @@ class Model
         return $builder->offset($offset)->limit($limit)->get();
     }
 
-    public function column(Collection $collection, string $column): array
+    /**
+     * Returns only the columns from the collection with the specified keys.
+     *
+     * @param null|array|string $keys
+     */
+    public function columns(Collection $items, $keys): BaseCollection
     {
+        if (is_null($keys)) {
+            return new BaseCollection([]);
+        }
         $result = [];
-        foreach ($collection as $item) {
-            $result[] = $item->{$column};
+        $isSingleColumn = is_string($keys);
+        foreach ($items as $item) {
+            if ($isSingleColumn) {
+                $value = $item->{$keys} ?? null;
+                $result[] = $value instanceof Arrayable ? $value->toArray() : $value;
+            } else {
+                $result[] = value(static function () use ($item, $keys) {
+                    $res = [];
+                    foreach ($keys as $key) {
+                        $value = $item->{$key} ?? null;
+                        $res[$key] = $value instanceof Arrayable ? $value->toArray() : $value;
+                    }
+
+                    return $res;
+                });
+            }
         }
 
-        return $result;
+        return new BaseCollection($result);
     }
 }
