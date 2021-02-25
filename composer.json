@@ -54,7 +54,7 @@
     },
     "scripts": {
         "test": "co-phpunit -c phpunit.xml --colors=always",
-        "analyse": "phpstan analyse --memory-limit 300M -l 0 ./src",
+        "analyse": "phpstan analyse --memory-limit 300M -l 5 ./src",
         "cs-fix": "php-cs-fixer fix $1"
     },
     "extra": {

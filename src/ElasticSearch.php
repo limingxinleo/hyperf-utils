@@ -40,7 +40,7 @@ abstract class ElasticSearch
     protected $hosts;
 
     /**
-     * @var PoolHandler
+     * @var null|PoolHandler
      */
     protected $handler;
 
