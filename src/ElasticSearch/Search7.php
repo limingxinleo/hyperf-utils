@@ -40,7 +40,7 @@ abstract class Search7
     protected $hosts;
 
     /**
-     * @var PoolHandler
+     * @var null|PoolHandler
      */
     protected $handler;
 
