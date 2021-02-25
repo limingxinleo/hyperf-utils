@@ -12,7 +12,8 @@
             "HyperfX\\Utils\\": "src/"
         },
         "files": [
-            "src/Functions.php"
+            "src/Functions.php",
+            "src/Reflection/Functions.php"
         ]
     },
     "autoload-dev": {
