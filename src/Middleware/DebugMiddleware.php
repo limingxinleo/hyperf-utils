@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace HyperfX\Utils\Middleware;
+namespace Han\Utils\Middleware;
 
 use Hyperf\HttpServer\Request;
 use Hyperf\Logger\LoggerFactory;

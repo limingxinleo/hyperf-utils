@@ -14,11 +14,11 @@ namespace HyperfTest\Cases;
 use Hyperf\Database\Model\Collection;
 use Hyperf\Utils\Collection as BaseCollection;
 use HyperfTest\Stub\Model as ModelStub;
-use HyperfX\Utils\Exception\NotFoundException;
-use HyperfX\Utils\Exception\RuntimeException;
-use HyperfX\Utils\Factory;
-use HyperfX\Utils\Utils\Date;
-use HyperfX\Utils\Utils\Model;
+use Han\Utils\Exception\NotFoundException;
+use Han\Utils\Exception\RuntimeException;
+use Han\Utils\Factory;
+use Han\Utils\Utils\Date;
+use Han\Utils\Utils\Model;
 use Mockery;
 use Psr\Container\ContainerInterface;
 

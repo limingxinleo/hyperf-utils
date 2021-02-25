@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace HyperfX\Utils;
+namespace Han\Utils;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
@@ -17,7 +17,7 @@ use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Database\Model\Model;
 use Hyperf\Guzzle\RingPHP\PoolHandler;
-use HyperfX\Utils\Exception\InvalidArgumentException;
+use Han\Utils\Exception\InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 
 abstract class ElasticSearch

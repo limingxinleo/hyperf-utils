@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use HyperfX\Utils\Utils\Date;
+use Han\Utils\Utils\Date;
 
 /**
  * @internal

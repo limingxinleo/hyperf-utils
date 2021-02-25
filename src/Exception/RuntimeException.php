@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace HyperfX\Utils\Exception;
+namespace Han\Utils\Exception;
 
 class RuntimeException extends \RuntimeException
 {

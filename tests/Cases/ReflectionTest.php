@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace HyperfTest\Cases;
 
 use HyperfTest\Stub\Model;
-use function HyperfX\Utils\Reflection\invoke;
+use function Han\Utils\Reflection\invoke;
 
 /**
  * @internal

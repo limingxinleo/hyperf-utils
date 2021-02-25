@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace HyperfTest\Stub;
 
 use Hyperf\Guzzle\RingPHP\CoroutineHandler;
-use HyperfX\Utils\ElasticSearch;
+use Han\Utils\ElasticSearch;
 
 class DataElasticSearchStub extends ElasticSearch
 {

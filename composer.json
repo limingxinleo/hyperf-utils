@@ -9,7 +9,7 @@
     "description": "Utils for hyperf.",
     "autoload": {
         "psr-4": {
-            "HyperfX\\Utils\\": "src/"
+            "Han\\Utils\\": "src/"
         },
         "files": [
             "src/Functions.php",
@@ -62,7 +62,7 @@
             "dev-master": "2.1-dev"
         },
         "hyperf": {
-            "config": "HyperfX\\Utils\\ConfigProvider"
+            "config": "Han\\Utils\\ConfigProvider"
         }
     }
 }

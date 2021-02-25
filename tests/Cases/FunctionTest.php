@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use function HyperfX\Utils\optional;
+use function Han\Utils\optional;
 
 /**
  * @internal

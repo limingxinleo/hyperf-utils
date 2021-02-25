@@ -9,12 +9,12 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace HyperfX\Utils;
+namespace Han\Utils;
 
-use HyperfX\Utils\Exception\NotFoundException;
-use HyperfX\Utils\Exception\RuntimeException;
-use HyperfX\Utils\Utils\Date;
-use HyperfX\Utils\Utils\Model;
+use Han\Utils\Exception\NotFoundException;
+use Han\Utils\Exception\RuntimeException;
+use Han\Utils\Utils\Date;
+use Han\Utils\Utils\Model;
 use Psr\Container\ContainerInterface;
 
 /**
