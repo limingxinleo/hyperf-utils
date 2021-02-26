@@ -11,6 +11,8 @@ declare(strict_types=1);
  */
 namespace Han\Utils;
 
+use Carbon\Carbon;
+use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Sorter;
 use Hyperf\Utils\ApplicationContext;
 use Hyperf\Utils\Optional;
@@ -22,6 +24,14 @@ use Laminas\Stdlib\SplPriorityQueue;
 function optional($object): Optional
 {
     return new Optional($object);
+}
+
+/**
+ * @param null|int|string $date
+ */
+function date_load($date): ?Carbon
+{
+    return app()->get(Date::class)->load($date);
 }
 
 /**
