@@ -11,14 +11,15 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use Hyperf\Database\Model\Collection;
-use Hyperf\Utils\Collection as BaseCollection;
-use HyperfTest\Stub\Model as ModelStub;
 use Han\Utils\Exception\NotFoundException;
 use Han\Utils\Exception\RuntimeException;
 use Han\Utils\Factory;
 use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Model;
+use Han\Utils\Utils\Sorter;
+use Hyperf\Database\Model\Collection;
+use Hyperf\Utils\Collection as BaseCollection;
+use HyperfTest\Stub\Model as ModelStub;
 use Mockery;
 use Psr\Container\ContainerInterface;
 
@@ -33,6 +34,7 @@ class FactoryTest extends AbstractTestCase
         $container = Mockery::mock(ContainerInterface::class);
         $container->shouldReceive('get')->with(Date::class)->andReturn(new Date());
         $container->shouldReceive('get')->with(Model::class)->andReturn(new Model());
+        $container->shouldReceive('get')->with(Sorter::class)->andReturn(new Sorter());
 
         $facotry = new Factory($container);
 

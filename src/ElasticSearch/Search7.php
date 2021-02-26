@@ -13,11 +13,11 @@ namespace Han\Utils\ElasticSearch;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Han\Utils\Exception\InvalidArgumentException;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Database\Model\Model;
 use Hyperf\Guzzle\RingPHP\PoolHandler;
-use Han\Utils\Exception\InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 
 abstract class Search7

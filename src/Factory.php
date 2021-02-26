@@ -15,11 +15,13 @@ use Han\Utils\Exception\NotFoundException;
 use Han\Utils\Exception\RuntimeException;
 use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Model;
+use Han\Utils\Utils\Sorter;
 use Psr\Container\ContainerInterface;
 
 /**
  * @property Model $model
  * @property Date $date
+ * @property Sorter $sorter;
  */
 class Factory
 {
@@ -30,6 +32,7 @@ class Factory
         $this->items = [
             'model' => $container->get(Model::class),
             'date' => $container->get(Date::class),
+            'sorter' => $container->get(Sorter::class),
         ];
     }
 
