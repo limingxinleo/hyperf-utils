@@ -62,4 +62,23 @@ class FactoryTest extends AbstractTestCase
         $result = (new Model())->columns($col, ['message']);
         $this->assertSame([['message' => $id], ['message' => $id2]], $result->toArray());
     }
+
+    public function testSorter()
+    {
+        $col = new Collection([
+            new ModelStub(['id' => 1, 'message' => $id = uniqid()]),
+            new ModelStub(['id' => 2, 'message' => $id2 = uniqid()]),
+        ]);
+
+        $sorter = new Sorter();
+        $res = $sorter->sort($col, static function (ModelStub $model) {
+            return $model->id;
+        });
+
+        $data = $res->toArray();
+        $this->assertSame(2, $data[0]->id);
+        $this->assertSame(1, $data[1]->id);
+        $this->assertSame($id2, $data[0]->message);
+        $this->assertSame($id, $data[1]->message);
+    }
 }
