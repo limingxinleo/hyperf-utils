@@ -19,9 +19,8 @@ use Han\Utils\Utils\Model;
 use Han\Utils\Utils\Sorter;
 use Hyperf\Database\Model\Collection;
 use Hyperf\Utils\Collection as BaseCollection;
+use HyperfTest\Stub\ContainerStub;
 use HyperfTest\Stub\Model as ModelStub;
-use Mockery;
-use Psr\Container\ContainerInterface;
 
 /**
  * @internal
@@ -31,10 +30,7 @@ class FactoryTest extends AbstractTestCase
 {
     public function testFactoryGet()
     {
-        $container = Mockery::mock(ContainerInterface::class);
-        $container->shouldReceive('get')->with(Date::class)->andReturn(new Date());
-        $container->shouldReceive('get')->with(Model::class)->andReturn(new Model());
-        $container->shouldReceive('get')->with(Sorter::class)->andReturn(new Sorter());
+        $container = ContainerStub::getContainer();
 
         $facotry = new Factory($container);
 
@@ -72,6 +68,16 @@ class FactoryTest extends AbstractTestCase
 
         $sorter = new Sorter();
         $res = $sorter->sort($col, static function (ModelStub $model) {
+            return $model->id;
+        });
+
+        $data = $res->toArray();
+        $this->assertSame(2, $data[0]->id);
+        $this->assertSame(1, $data[1]->id);
+        $this->assertSame($id2, $data[0]->message);
+        $this->assertSame($id, $data[1]->message);
+
+        $res = \Han\Utils\sort($col, static function (ModelStub $model) {
             return $model->id;
         });
 

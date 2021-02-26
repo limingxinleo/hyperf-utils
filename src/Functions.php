@@ -11,7 +11,10 @@ declare(strict_types=1);
  */
 namespace Han\Utils;
 
+use Han\Utils\Utils\Sorter;
+use Hyperf\Utils\ApplicationContext;
 use Hyperf\Utils\Optional;
+use Laminas\Stdlib\SplPriorityQueue;
 
 /**
  * @param mixed $object
@@ -19,4 +22,27 @@ use Hyperf\Utils\Optional;
 function optional($object): Optional
 {
     return new Optional($object);
+}
+
+/**
+ * @param array|\iterable $items
+ */
+function sort($items, callable $callable): SplPriorityQueue
+{
+    return app()->get(Sorter::class)->sort($items, $callable);
+}
+
+/**
+ * Finds an entry of the container by its identifier and returns it.
+ * @param null|string $id
+ * @return mixed|\Psr\Container\ContainerInterface
+ */
+function app($id = null)
+{
+    $container = ApplicationContext::getContainer();
+    if ($id) {
+        return $container->get($id);
+    }
+
+    return $container;
 }

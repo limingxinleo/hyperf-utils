@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Stub;
 
+use Han\Utils\Utils\Date;
+use Han\Utils\Utils\Model;
+use Han\Utils\Utils\Sorter;
 use Hyperf\Config\Config;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
@@ -35,6 +38,9 @@ class ContainerStub
         ]);
         $container->shouldReceive('get')->with(ConfigInterface::class)->andReturn($config);
         $container->shouldReceive('get')->with(StdoutLoggerInterface::class)->andReturn(new StdoutLogger($config));
+        $container->shouldReceive('get')->with(Date::class)->andReturn(new Date());
+        $container->shouldReceive('get')->with(Model::class)->andReturn(new Model());
+        $container->shouldReceive('get')->with(Sorter::class)->andReturn(new Sorter());
 
         return $container;
     }
