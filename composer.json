@@ -29,7 +29,7 @@
     },
     "require-dev": {
         "elasticsearch/elasticsearch": "^7.8",
-        "friendsofphp/php-cs-fixer": "^2.14",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "hyperf/config": "^2.1",
         "hyperf/database": "^2.1",
         "hyperf/framework": "^2.1",

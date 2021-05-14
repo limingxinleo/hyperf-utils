@@ -22,7 +22,7 @@ use Psr\Container\ContainerInterface;
 
 abstract class Search7
 {
-    const VERSION = 7;
+    public const VERSION = 7;
 
     /**
      * @var ContainerInterface

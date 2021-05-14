@@ -22,7 +22,7 @@ use Psr\Container\ContainerInterface;
 
 abstract class ElasticSearch
 {
-    const VERSION = 5;
+    public const VERSION = 5;
 
     /**
      * @var ContainerInterface
