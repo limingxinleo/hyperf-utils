@@ -59,7 +59,7 @@ class DebugDeferMiddleware implements MiddlewareInterface
             $debug .= 'DATA: ' . $customData . PHP_EOL;
         }
         if (isset($request)) {
-            $debug .= 'REQUEST_HEADERS: ' . Json::encode($request->getHeaders());
+            $debug .= 'REQUEST_HEADERS: ' . Json::encode($request->getHeaders()) . PHP_EOL;
             $debug .= 'REQUEST_BODY: ' . $this->getRequestString($request) . PHP_EOL;
         }
 

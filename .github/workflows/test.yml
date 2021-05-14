@@ -60,6 +60,9 @@ jobs:
           php --ri swow
       - name: Setup Packages
         run: composer update -o --no-scripts
+      - name: Setup Swow Engine
+        if: ${{ matrix.engine == 'swow' }}
+        run: composer require hyperf/engine-swow
       - name: Run Scripts before Test
         run: php tests/setup_elasticsearch.php
       - name: Run Test Cases
