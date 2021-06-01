@@ -18,18 +18,18 @@ use Hyperf\Utils\Contracts\Arrayable;
 
 class Model
 {
-    public function pagination(Builder $builder, $offset = 0, $limit = 10)
+    public function pagination(Builder $builder, $offset = 0, $limit = 10, $columns = ['*'])
     {
         $count = $builder->count();
 
-        $items = $builder->offset($offset)->limit($limit)->get();
+        $items = $builder->offset($offset)->limit($limit)->get($columns);
 
         return [$count, $items];
     }
 
-    public function query(Builder $builder, $offset = 0, $limit = 10)
+    public function query(Builder $builder, $offset = 0, $limit = 10, $columns = ['*'])
     {
-        return $builder->offset($offset)->limit($limit)->get();
+        return $builder->offset($offset)->limit($limit)->get($columns);
     }
 
     /**
