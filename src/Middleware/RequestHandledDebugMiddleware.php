@@ -42,9 +42,9 @@ class RequestHandledDebugMiddleware implements MiddlewareInterface
 
             // 日志
             $time = microtime(true) - $time;
-            $debug = 'URI: ' . (string) $request->getUri() . PHP_EOL;
+            $debug = $request->getMethod() . ' ' . (string)$request->getUri() . PHP_EOL;
             $debug .= 'TIME: ' . $time . PHP_EOL;
-            $debug .= 'REQUEST: ' . $this->getRequestString($request) . PHP_EOL;
+            $debug .= $this->getRequestString($request) . PHP_EOL;
             if (isset($response)) {
                 $debug .= 'RESPONSE: ' . $this->getResponseString($response) . PHP_EOL;
             }
@@ -64,19 +64,19 @@ class RequestHandledDebugMiddleware implements MiddlewareInterface
 
     protected function getResponseString(ResponseInterface $response): string
     {
-        return (string) $response->getBody();
+        return (string)$response->getBody();
     }
 
     protected function getRequestString(ServerRequestInterface $request): string
     {
         $result = '';
         foreach ($request->getHeaders() as $header => $values) {
-            foreach ((array) $values as $value) {
+            foreach ((array)$values as $value) {
                 $result .= $header . ': ' . $value . PHP_EOL;
             }
         }
 
-        $result .= (string) $request->getBody();
+        $result .= (string)$request->getBody();
         return $result;
     }
 
