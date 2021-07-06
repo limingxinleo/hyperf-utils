@@ -43,6 +43,14 @@ function sort($items, callable $callable): SplPriorityQueue
 }
 
 /**
+ * @param array|\iterable $items
+ */
+function spl_sort($items, callable $callable): SplPriorityQueue
+{
+    return app()->get(Sorter::class)->sort($items, $callable);
+}
+
+/**
  * Finds an entry of the container by its identifier and returns it.
  * @param null|string $id
  * @return mixed|\Psr\Container\ContainerInterface
