@@ -23,7 +23,7 @@
     },
     "require": {
         "php": ">=7.3",
-        "hyperf/utils": "^2.1",
+        "hyperf/utils": "^2.1|^3.0",
         "nesbot/carbon": "^2.0",
         "psr/container": "^1.0"
     },
