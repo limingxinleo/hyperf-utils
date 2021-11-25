@@ -25,7 +25,7 @@
         "php": ">=7.3",
         "hyperf/utils": "^2.1|^3.0",
         "nesbot/carbon": "^2.0",
-        "psr/container": "^1.0"
+        "psr/container": "^1.0|^2.0"
     },
     "require-dev": {
         "elasticsearch/elasticsearch": "^7.8",
@@ -41,7 +41,7 @@
         "swoole/ide-helper": "dev-master"
     },
     "suggest": {
-        "elasticsearch/elasticsearch" : "Required to use ElasticSearch. (^7.0)",
+        "elasticsearch/elasticsearch": "Required to use ElasticSearch. (^7.0)",
         "hyperf/guzzle": "Required to use ElasticSearch. (^2.1)",
         "hyperf/framework": "Required to use ElasticSearch. (^2.1)",
         "hyperf/logger": "Required to use DebugMiddleware. (^2.1)",
