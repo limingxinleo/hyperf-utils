@@ -13,7 +13,7 @@ namespace Han\Utils;
 
 use Hyperf\Utils\Traits\StaticInstance;
 
-abstract class ContextInCoroutine
+abstract class ContextInstance
 {
     use StaticInstance;
 
