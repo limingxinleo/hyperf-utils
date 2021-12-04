@@ -76,7 +76,12 @@ class RequestHandledDebugMiddleware implements MiddlewareInterface
             }
         }
 
-        $result .= (string) $request->getBody();
+        if (! str_contains($request->getHeaderLine('Content-Type'), 'multipart/form-data')) {
+            $result .= (string) $request->getBody();
+        } else {
+            $result .= 'The body contains boundary data, ignore it.';
+        }
+
         return $result;
     }
 
