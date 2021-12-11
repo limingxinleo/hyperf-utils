@@ -13,7 +13,7 @@ namespace Han\Utils\Caster;
 
 use Hyperf\Utils\Contracts\Arrayable;
 
-class StringItems implements Arrayable
+class StringItems implements Arrayable, \Countable
 {
     protected array $items;
 
@@ -47,5 +47,10 @@ class StringItems implements Arrayable
         if (! in_array($data, $this->items)) {
             $this->items[] = $data;
         }
+    }
+
+    public function count(): int
+    {
+        return count($this->items);
     }
 }

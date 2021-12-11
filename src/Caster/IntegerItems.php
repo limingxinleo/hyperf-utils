@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 namespace Han\Utils\Caster;
 
-class IntegerItems
+class IntegerItems implements \Countable
 {
     /**
      * @var int[]
@@ -72,5 +72,10 @@ class IntegerItems
         $this->items[] = $id;
         $this->items = array_values(array_unique($this->items));
         return $this;
+    }
+
+    public function count(): int
+    {
+        return count($this->items);
     }
 }
