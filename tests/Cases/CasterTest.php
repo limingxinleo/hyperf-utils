@@ -50,7 +50,7 @@ class CasterTest extends AbstractTestCase
     {
         $foo = new Foo(['online_at' => '2021-12-11 13:09:00']);
         $this->assertInstanceOf(Carbon::class, $foo->online_at);
-        $this->assertSame(1639228140, $foo->online_at->getTimestamp());
+        $this->assertSame(1639199340, $foo->online_at->getTimestamp());
 
         $foo->online_at = $now = Carbon::now();
         $foo->syncAttributes();

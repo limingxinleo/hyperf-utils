@@ -19,6 +19,7 @@ use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Framework\Logger\StdoutLogger;
 use Hyperf\Utils\ApplicationContext;
+use Hyperf\Utils\Waiter;
 use Mockery;
 use Psr\Container\ContainerInterface;
 
@@ -41,6 +42,7 @@ class ContainerStub
         $container->shouldReceive('get')->with(Date::class)->andReturn(new Date());
         $container->shouldReceive('get')->with(Model::class)->andReturn(new Model());
         $container->shouldReceive('get')->with(Sorter::class)->andReturn(new Sorter());
+        $container->shouldReceive('get')->with(Waiter::class)->andReturn(new Waiter());
 
         return $container;
     }

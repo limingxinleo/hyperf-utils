@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
+use HyperfTest\Stub\ContainerStub;
 use HyperfTest\Stub\FooContext;
 
 /**
@@ -21,6 +22,8 @@ class ContextInstanceTest extends AbstractTestCase
 {
     public function testContextFirst()
     {
+        ContainerStub::getContainer();
+
         wait(function () {
             $foo = FooContext::instance();
             $foo->init([1, 2, 3]);
