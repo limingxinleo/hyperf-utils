@@ -36,6 +36,7 @@ class SafeDateTimeCaster implements CastsAttributes
             return $value;
         }
 
+        /* @phpstan-ignore-next-line */
         return null;
     }
 }
