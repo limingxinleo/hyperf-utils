@@ -46,7 +46,8 @@
         "hyperf/guzzle": "Required to use ElasticSearch. (^2.1)",
         "hyperf/framework": "Required to use ElasticSearch. (^2.1)",
         "hyperf/logger": "Required to use DebugMiddleware. (^2.1)",
-        "hyperf/http-server": "Required to use DebugMiddleware. (^2.1)"
+        "hyperf/http-server": "Required to use DebugMiddleware. (^2.1)",
+        "mockery/mockery": "Required to use FastMockery. (^1.0)"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
