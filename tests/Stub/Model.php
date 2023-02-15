@@ -13,5 +13,5 @@ namespace HyperfTest\Stub;
 
 class Model extends \Hyperf\Database\Model\Model
 {
-    protected $fillable = ['id', 'type', 'message', 'keyword'];
+    protected array $fillable = ['id', 'type', 'message', 'keyword'];
 }

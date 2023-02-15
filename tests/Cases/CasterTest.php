@@ -73,7 +73,7 @@ class CasterTest extends AbstractTestCase
  */
 class Foo extends Model
 {
-    protected $fillable = ['user_ids', 'online_at'];
+    protected array $fillable = ['user_ids', 'online_at'];
 
-    protected $casts = ['user_ids' => IntegerItemsCaster::class, 'online_at' => SafeDateTimeCaster::class];
+    protected array $casts = ['user_ids' => IntegerItemsCaster::class, 'online_at' => SafeDateTimeCaster::class];
 }

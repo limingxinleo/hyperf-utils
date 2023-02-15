@@ -25,6 +25,7 @@ class Sorter
         foreach ($items as $item) {
             $priority = (array) $callable($item);
             $priority[] = $serial--;
+            /* @phpstan-ignore-next-line */
             $queue->insert($item, $priority);
         }
         return $queue;
