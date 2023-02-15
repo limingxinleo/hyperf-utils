@@ -52,7 +52,7 @@ class RequestHandledDebugMiddleware implements MiddlewareInterface
                 $debug .= 'EXCEPTION: ' . $exception->getMessage() . PHP_EOL;
             }
 
-            if ($time > 1) {
+            if ($time > $this->getTimeout($request)) {
                 $logger->error($debug);
             } else {
                 $logger->info($debug);
@@ -60,6 +60,11 @@ class RequestHandledDebugMiddleware implements MiddlewareInterface
         }
 
         return $response;
+    }
+
+    protected function getTimeout(ServerRequestInterface $request): float
+    {
+        return 1.0;
     }
 
     protected function getResponseString(ResponseInterface $response): string

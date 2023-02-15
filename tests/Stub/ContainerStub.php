@@ -20,14 +20,13 @@ use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Framework\Logger\StdoutLogger;
 use Hyperf\Utils\ApplicationContext;
 use Hyperf\Utils\Waiter;
-use Mockery;
 use Psr\Container\ContainerInterface;
 
 class ContainerStub
 {
     public static function getContainer()
     {
-        $container = Mockery::mock(ContainerInterface::class);
+        $container = \Mockery::mock(ContainerInterface::class);
         ApplicationContext::setContainer($container);
 
         $config = new Config([

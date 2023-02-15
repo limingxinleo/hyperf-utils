@@ -31,14 +31,14 @@
     "require-dev": {
         "elasticsearch/elasticsearch": "^7.8",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "hyperf/config": "^2.1",
-        "hyperf/database": "^2.1",
-        "hyperf/framework": "^2.1",
-        "hyperf/guzzle": "^2.1",
-        "hyperf/logger": "^2.1",
-        "hyperf/testing": "^2.1",
+        "hyperf/config": "^2.1|^3.0",
+        "hyperf/database": "^2.1|^3.0",
+        "hyperf/framework": "^2.1|^3.0",
+        "hyperf/guzzle": "^2.1|^3.0",
+        "hyperf/logger": "^2.1|^3.0",
+        "hyperf/testing": "^2.1|^3.0",
         "mockery/mockery": "^1.3",
-        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan": "^1.0",
         "swoole/ide-helper": "dev-master"
     },
     "suggest": {
