@@ -11,10 +11,11 @@ declare(strict_types=1);
  */
 namespace Han\Utils\Utils;
 
+use Hyperf\Contract\Arrayable;
+use Hyperf\Database\Model as BaseModel;
 use Hyperf\Database\Model\Builder;
 use Hyperf\Database\Model\Collection;
 use Hyperf\Utils\Collection as BaseCollection;
-use Hyperf\Utils\Contracts\Arrayable;
 
 class Model
 {
@@ -30,6 +31,15 @@ class Model
     public function query(Builder $builder, $offset = 0, $limit = 10, $columns = ['*'])
     {
         return $builder->offset($offset)->limit($limit)->get($columns);
+    }
+
+    public function loadCache(BaseModel $model, array $relations = []): BaseModel
+    {
+        tap(new Collection([$model]), static function (Collection $col) use ($relations) {
+            $col->loadCache($relations);
+        });
+
+        return $model;
     }
 
     /**
