@@ -12,9 +12,9 @@ declare(strict_types=1);
 namespace Han\Utils\Utils;
 
 use Hyperf\Contract\Arrayable;
-use Hyperf\Database\Model as BaseModel;
 use Hyperf\Database\Model\Builder;
 use Hyperf\Database\Model\Collection;
+use Hyperf\Database\Model\Model as BaseModel;
 use Hyperf\Utils\Collection as BaseCollection;
 
 class Model
