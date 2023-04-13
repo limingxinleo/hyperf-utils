@@ -76,7 +76,16 @@ abstract class Search7
 
     public function handler(): mixed
     {
-        return null;
+        if ($this->handler instanceof PoolHandler) {
+            return $this->handler;
+        }
+
+        return $this->handler = make(PoolHandler::class, [
+            'option' => [
+                'max_connections' => 50,
+                'max_idle_time' => 1,
+            ],
+        ]);
     }
 
     /**
