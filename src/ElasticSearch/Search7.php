@@ -180,7 +180,15 @@ abstract class Search7
         return [0, []];
     }
 
-    public function putIndex(bool $force = false): bool
+    /**
+     * @param $body = [
+     *     'settings' => [
+     *         'number_of_replicas' => 2,
+     *         'number_of_shards' => 9,
+     *     ]
+     * ]
+     */
+    public function putIndex(bool $force = false, array $body = []): bool
     {
         $client = $this->client();
         $indices = $client->indices();
@@ -195,6 +203,9 @@ abstract class Search7
         }
 
         if (! $exist) {
+            if ($body) {
+                $params['body'] = $body;
+            }
             $indices->create($params);
             return true;
         }
