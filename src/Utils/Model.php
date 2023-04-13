@@ -17,6 +17,8 @@ use Hyperf\Database\Model\Builder;
 use Hyperf\Database\Model\Collection;
 use Hyperf\Database\Model\Model as BaseModel;
 
+use function Hyperf\Tappable\tap;
+
 class Model
 {
     public function pagination(Builder $builder, $offset = 0, $limit = 10, $columns = ['*'])
@@ -36,6 +38,7 @@ class Model
     public function loadCache(BaseModel $model, array $relations = []): BaseModel
     {
         tap(new Collection([$model]), static function (Collection $col) use ($relations) {
+            /* @phpstan-ignore-next-line */
             $col->loadCache($relations);
         });
 

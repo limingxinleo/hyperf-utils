@@ -16,7 +16,7 @@ use Laminas\Stdlib\SplPriorityQueue;
 class Sorter
 {
     /**
-     * @param array|\iterable $items
+     * @param array|\Traversable $items
      */
     public function sort($items, callable $callable): SplPriorityQueue
     {

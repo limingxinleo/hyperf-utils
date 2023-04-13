@@ -35,7 +35,7 @@ function date_load($date): ?Carbon
 }
 
 /**
- * @param array|\iterable $items
+ * @param array|\Traversable $items
  */
 function sort($items, callable $callable): SplPriorityQueue
 {
@@ -43,7 +43,7 @@ function sort($items, callable $callable): SplPriorityQueue
 }
 
 /**
- * @param array|\iterable $items
+ * @param array|\Traversable $items
  */
 function spl_sort($items, callable $callable): SplPriorityQueue
 {
