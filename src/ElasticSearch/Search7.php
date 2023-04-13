@@ -74,18 +74,9 @@ abstract class Search7
         return $this->client;
     }
 
-    public function handler()
+    public function handler(): mixed
     {
-        if ($this->handler instanceof PoolHandler) {
-            return $this->handler;
-        }
-
-        return $this->handler = make(PoolHandler::class, [
-            'option' => [
-                'max_connections' => 50,
-                'max_idle_time' => 1,
-            ],
-        ]);
+        return null;
     }
 
     /**
@@ -156,6 +147,14 @@ abstract class Search7
         }
 
         return true;
+    }
+
+    /**
+     * @param array $extra don't remove from arguments, it can easily cut by aop
+     */
+    public function rawSearch(array $params, array $extra = []): array
+    {
+        return $this->client()->search($params);
     }
 
     public function search(array $body): array

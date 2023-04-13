@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 namespace Han\Utils\Caster;
 
-use Hyperf\Utils\Contracts\Arrayable;
+use Hyperf\Contract\Arrayable;
 
 class StringItems implements Arrayable, \Countable
 {

@@ -14,7 +14,7 @@ namespace Han\Utils;
 use Carbon\Carbon;
 use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Sorter;
-use Hyperf\Utils\ApplicationContext;
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Utils\Optional;
 use Laminas\Stdlib\SplPriorityQueue;
 
