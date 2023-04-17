@@ -157,16 +157,15 @@ abstract class Search7
         return $this->client()->search($params);
     }
 
-    public function search(array $body): array
+    public function search(array $body, array $extra = []): array
     {
-        $client = $this->client();
-
-        $params = [
-            'index' => $this->index(),
-            'body' => $body,
-        ];
-
-        $res = $client->search($params);
+        $res = $this->rawSearch(
+            [
+                'index' => $this->index(),
+                'body' => $body,
+            ],
+            $extra
+        );
 
         if (isset($res['hits']['hits']) && $hits = $res['hits']['hits']) {
             $ids = [];
