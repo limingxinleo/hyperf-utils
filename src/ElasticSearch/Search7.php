@@ -173,7 +173,7 @@ abstract class Search7
                 $ids[] = $item['_id'];
             }
 
-            return [$res['hits']['total'], $ids];
+            return [$res['hits']['total']['value'] ?? 0, $ids];
         }
 
         return [0, []];
