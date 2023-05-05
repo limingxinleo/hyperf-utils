@@ -24,8 +24,11 @@ class Model
     public function pagination(Builder $builder, $offset = 0, $limit = 10, $columns = ['*'])
     {
         $count = $builder->count();
-
-        $items = $builder->offset($offset)->limit($limit)->get($columns);
+        if ($limit > 0) {
+            $items = $builder->offset($offset)->limit($limit)->get($columns);
+        } else {
+            $items = new Collection([]);
+        }
 
         return [$count, $items];
     }
