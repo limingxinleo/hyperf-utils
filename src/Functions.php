@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Han\Utils;
 
 use Carbon\Carbon;
+use Han\Utils\Exception\RuntimeException;
 use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Sorter;
 use Hyperf\Context\ApplicationContext;
@@ -63,4 +64,21 @@ function app($id = null)
     }
 
     return $container;
+}
+
+function csv_open(string $path)
+{
+    $dirname = dirname($path);
+    if (! is_dir($dirname)) {
+        @mkdir($dirname, 0775, true);
+    }
+
+    $fp = fopen($path, 'w+');
+    if (! $fp) {
+        throw new RuntimeException('Csv init failed.');
+    }
+
+    fwrite($fp, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
+    return $fp;
 }

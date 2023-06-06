@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
+use function Han\Utils\csv_open;
 use function Han\Utils\optional;
 
 /**
@@ -22,5 +23,17 @@ class FunctionTest extends AbstractTestCase
     public function testOptional()
     {
         $this->assertNull(optional(null)->id);
+    }
+
+    public function testCsvOpen()
+    {
+        $fp = csv_open(__DIR__ . '/../../runtime/' . uniqid() . '.csv');
+
+        fputcsv($fp, ['ID', 'Name']);
+        fputcsv($fp, ['1', 'hyperf']);
+
+        fclose($fp);
+
+        $this->assertTrue(true);
     }
 }

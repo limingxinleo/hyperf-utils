@@ -18,6 +18,7 @@ use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Database\Model\Model;
 use Hyperf\Guzzle\RingPHP\PoolHandler;
+use JetBrains\PhpStorm\ArrayShape;
 use Psr\Container\ContainerInterface;
 
 abstract class Search7
@@ -179,16 +180,11 @@ abstract class Search7
         return [0, []];
     }
 
-    /**
-     * @param $body = [
-     *     'settings' => [
-     *         'number_of_replicas' => 2,
-     *         'number_of_shards' => 9,
-     *     ]
-     * ]
-     */
-    public function putIndex(bool $force = false, array $body = []): bool
-    {
+    public function putIndex(
+        bool $force = false,
+        #[ArrayShape(['settings' => ['number_of_replicas' => 'int', 'number_of_shards' => 'int']])]
+        array $body = []
+    ): bool {
         $client = $this->client();
         $indices = $client->indices();
 
