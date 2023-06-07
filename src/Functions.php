@@ -15,7 +15,9 @@ use Carbon\Carbon;
 use Han\Utils\Exception\RuntimeException;
 use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Sorter;
+use Hyperf\Collection\Arr;
 use Hyperf\Context\ApplicationContext;
+use Hyperf\Database\Model\Model;
 use Hyperf\Utils\Optional;
 use Laminas\Stdlib\SplPriorityQueue;
 
@@ -81,4 +83,17 @@ function csv_open(string $path)
     fwrite($fp, chr(0xEF) . chr(0xBB) . chr(0xBF));
 
     return $fp;
+}
+
+/**
+ * 判断模型是否被修改过.
+ * @param array $expect 被排除检测的 key 列表
+ */
+function model_is_dirty(Model $model, array $expect = []): bool
+{
+    $dirty = $model->getDirty();
+
+    Arr::forget($dirty, $expect);
+
+    return ! empty($dirty);
 }
