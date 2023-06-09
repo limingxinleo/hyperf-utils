@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace HyperfTest\Cases;
 
 use function Han\Utils\csv_open;
+use function Han\Utils\http_parse_query;
 use function Han\Utils\optional;
 
 /**
@@ -35,5 +36,11 @@ class FunctionTest extends AbstractTestCase
         fclose($fp);
 
         $this->assertTrue(true);
+    }
+
+    public function testHttpParseQuery()
+    {
+        $res = http_parse_query('id=1&name=limx');
+        $this->assertSame(['id' => '1', 'name' => 'limx'], $res);
     }
 }

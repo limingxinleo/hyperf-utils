@@ -97,3 +97,18 @@ function model_is_dirty(Model $model, array $expect = []): bool
 
     return ! empty($dirty);
 }
+
+/**
+ * 根据 http query 解析成数组.
+ */
+function http_parse_query(string $query): array
+{
+    $exploded = explode('&', $query);
+    $result = [];
+    foreach ($exploded as $value) {
+        $ret = explode('=', $value);
+        $result[$ret[0]] = $ret[1];
+    }
+
+    return $result;
+}
