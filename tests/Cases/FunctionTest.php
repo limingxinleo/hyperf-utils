@@ -42,5 +42,8 @@ class FunctionTest extends AbstractTestCase
     {
         $res = http_parse_query('id=1&name=limx');
         $this->assertSame(['id' => '1', 'name' => 'limx'], $res);
+
+        $res = http_parse_query('id=1&name=' . urlencode(json_encode(['id' => 1])));
+        $this->assertSame(['id' => '1', 'name' => json_encode(['id' => 1])], $res);
     }
 }

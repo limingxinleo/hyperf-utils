@@ -99,16 +99,11 @@ function model_is_dirty(Model $model, array $expect = []): bool
 }
 
 /**
+ * WARN: 注意，参数会被 urldecode
  * 根据 http query 解析成数组.
  */
 function http_parse_query(string $query): array
 {
-    $exploded = explode('&', $query);
-    $result = [];
-    foreach ($exploded as $value) {
-        $ret = explode('=', $value);
-        $result[$ret[0]] = $ret[1];
-    }
-
+    parse_str($query, $result);
     return $result;
 }
