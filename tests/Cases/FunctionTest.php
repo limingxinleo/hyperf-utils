@@ -11,9 +11,12 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
+use Hyperf\HttpMessage\Uri\Uri;
+
 use function Han\Utils\csv_open;
 use function Han\Utils\http_parse_query;
 use function Han\Utils\optional;
+use function Han\Utils\unset_uri_param;
 
 /**
  * @internal
@@ -45,5 +48,16 @@ class FunctionTest extends AbstractTestCase
 
         $res = http_parse_query('id=1&name=' . urlencode(json_encode(['id' => 1])));
         $this->assertSame(['id' => '1', 'name' => json_encode(['id' => 1])], $res);
+    }
+
+    public function testUnsetUriParam()
+    {
+        $uri = new Uri('http://xxx.com?id=1&json=' . urlencode(json_encode(['id' => 1])));
+
+        $this->assertSame('http://xxx.com?json=' . urlencode(json_encode(['id' => 1])), (string) unset_uri_param($uri, 'id'));
+
+        $uri = new Uri('http://xxx.com?id=1&json=' . urlencode(json_encode(['id' => 1])));
+
+        $this->assertSame('http://xxx.com?id=1', (string) unset_uri_param($uri, 'json'));
     }
 }

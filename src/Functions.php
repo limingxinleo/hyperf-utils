@@ -18,6 +18,7 @@ use Han\Utils\Utils\Sorter;
 use Hyperf\Collection\Arr;
 use Hyperf\Context\ApplicationContext;
 use Hyperf\Database\Model\Model;
+use Hyperf\HttpMessage\Uri\Uri;
 use Hyperf\Utils\Optional;
 use Laminas\Stdlib\SplPriorityQueue;
 
@@ -106,4 +107,16 @@ function http_parse_query(string $query): array
 {
     parse_str($query, $result);
     return $result;
+}
+
+/**
+ * 移除 Uri 中某个参数.
+ */
+function unset_uri_param(Uri $uri, string $key): Uri
+{
+    $query = $uri->getQuery();
+    $params = http_parse_query($query);
+    unset($params[$key]);
+
+    return $uri->withQuery(http_build_query($params));
 }
