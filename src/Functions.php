@@ -19,7 +19,7 @@ use Hyperf\Collection\Arr;
 use Hyperf\Context\ApplicationContext;
 use Hyperf\Database\Model\Model;
 use Hyperf\HttpMessage\Uri\Uri;
-use Hyperf\Utils\Optional;
+use Hyperf\Support\Optional;
 use Laminas\Stdlib\SplPriorityQueue;
 
 /**

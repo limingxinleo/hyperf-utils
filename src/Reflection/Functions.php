@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 namespace Han\Utils\Reflection;
 
-use Hyperf\Utils\Reflection\ClassInvoker;
+use Hyperf\Support\Reflection\ClassInvoker;
 
 function invoke($instance): ClassInvoker
 {

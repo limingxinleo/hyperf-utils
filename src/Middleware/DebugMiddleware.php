@@ -11,9 +11,9 @@ declare(strict_types=1);
  */
 namespace Han\Utils\Middleware;
 
+use Hyperf\Codec\Json;
 use Hyperf\HttpServer\Request;
 use Hyperf\Logger\LoggerFactory;
-use Hyperf\Utils\Codec\Json;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
