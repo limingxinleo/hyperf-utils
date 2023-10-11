@@ -87,6 +87,16 @@ function csv_open(string $path)
     return $fp;
 }
 
+function safe_path(string $path): string
+{
+    $dirname = dirname($path);
+    if (! is_dir($dirname)) {
+        @mkdir($dirname, 0775, true);
+    }
+
+    return $path;
+}
+
 /**
  * 判断模型是否被修改过.
  * @param array $expect 被排除检测的 key 列表
