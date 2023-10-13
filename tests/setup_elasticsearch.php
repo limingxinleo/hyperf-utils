@@ -14,6 +14,8 @@ require_once 'bootstrap.php';
 use HyperfTest\Stub\ContainerStub;
 use HyperfTest\Stub\DataElasticSearchStub;
 
+use function Hyperf\Coroutine\run;
+
 $callback = function () {
     $container = ContainerStub::getContainer();
     $client = new DataElasticSearchStub($container);
