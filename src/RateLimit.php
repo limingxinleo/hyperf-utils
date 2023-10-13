@@ -22,9 +22,9 @@ class RateLimit
     /**
      * @param int $ms 限流时，阻塞毫秒数
      */
-    public function wait(int $ms, mixed $params = null): void
+    public function wait(int $ms, mixed ...$params): void
     {
-        if ($this->isRateLimit->__invoke($params)) {
+        if ($this->isRateLimit->__invoke(...$params)) {
             usleep($ms * 1000);
         }
     }
