@@ -18,6 +18,7 @@ class Continuous
         public bool $continuous,
         public null|float|int $min = null,
         public null|float|int $max = null,
+        public bool $empty = false,
     ) {
     }
 
@@ -27,5 +28,13 @@ class Continuous
     public function isContinuous(): bool
     {
         return $this->continuous;
+    }
+
+    /**
+     * 是否为空.
+     */
+    public function isEmpty(): bool
+    {
+        return $this->empty;
     }
 }

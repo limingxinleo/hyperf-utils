@@ -139,6 +139,10 @@ function unset_uri_param(Uri $uri, string $key): Uri
  */
 function is_continuous(array $array): Continuous
 {
+    if (! $array) {
+        return new Continuous(false, empty: true);
+    }
+
     $queue = new SplPriorityQueue();
     foreach ($array as $item) {
         $queue->insert($item, $item[1]);
