@@ -18,6 +18,7 @@ use Hyperf\Database\Model\Builder;
 use Hyperf\Database\Model\Collection;
 use Hyperf\Database\Model\Model as BaseModel;
 
+use function Hyperf\Support\value;
 use function Hyperf\Tappable\tap;
 
 class Model

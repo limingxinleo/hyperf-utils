@@ -21,6 +21,8 @@ use Hyperf\Database\Model\Model;
 use Hyperf\Guzzle\RingPHP\PoolHandler;
 use Psr\Container\ContainerInterface;
 
+use function Hyperf\Support\make;
+
 abstract class ElasticSearch
 {
     public const VERSION = 5;
