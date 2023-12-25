@@ -14,6 +14,7 @@ namespace Han\Utils;
 
 use Carbon\Carbon;
 use Han\Utils\Exception\RuntimeException;
+use Han\Utils\Schema\Continuous;
 use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Sorter;
 use Hyperf\Collection\Arr;
@@ -130,4 +131,33 @@ function unset_uri_param(Uri $uri, string $key): Uri
     unset($params[$key]);
 
     return $uri->withQuery(http_build_query($params));
+}
+
+/**
+ * 判断数组是否前后连续.
+ * @param array $array = [[1,5], [5,6], [6,10]]
+ */
+function is_continuous(array $array): Continuous
+{
+    $queue = new SplPriorityQueue();
+    foreach ($array as $item) {
+        $queue->insert($item, $item[1]);
+    }
+
+    $min = $max = null;
+    foreach ($queue as $item) {
+        if ($max === null) {
+            $min = $item[0];
+            $max = $item[1];
+            continue;
+        }
+
+        if ($min > $item[1]) {
+            return new Continuous(false);
+        }
+
+        $min = min($min, $item[0]);
+    }
+
+    return new Continuous(true, $min, $max);
 }
