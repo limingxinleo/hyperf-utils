@@ -15,6 +15,8 @@ namespace HyperfTest\Cases;
 use HyperfTest\Stub\ContainerStub;
 use HyperfTest\Stub\FooContext;
 
+use function Hyperf\Coroutine\wait;
+
 /**
  * @internal
  * @coversNothing

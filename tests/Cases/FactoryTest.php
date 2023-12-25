@@ -18,8 +18,8 @@ use Han\Utils\Factory;
 use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Model;
 use Han\Utils\Utils\Sorter;
+use Hyperf\Collection\Collection as BaseCollection;
 use Hyperf\Database\Model\Collection;
-use Hyperf\Utils\Collection as BaseCollection;
 use HyperfTest\Stub\ContainerStub;
 use HyperfTest\Stub\Model as ModelStub;
 
