@@ -16,11 +16,11 @@ use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Model;
 use Han\Utils\Utils\Sorter;
 use Hyperf\Config\Config;
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
+use Hyperf\Coroutine\Waiter;
 use Hyperf\Framework\Logger\StdoutLogger;
-use Hyperf\Utils\ApplicationContext;
-use Hyperf\Utils\Waiter;
 use Psr\Container\ContainerInterface;
 
 class ContainerStub

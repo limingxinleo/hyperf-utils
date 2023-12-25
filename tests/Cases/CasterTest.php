@@ -17,8 +17,8 @@ use Han\Utils\Caster\IntegerItems;
 use Han\Utils\Caster\IntegerItemsCaster;
 use Han\Utils\Caster\SafeDateTimeCaster;
 use Han\Utils\Utils\Date;
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Database\Model\Model;
-use Hyperf\Utils\ApplicationContext;
 use Psr\Container\ContainerInterface;
 
 /**
