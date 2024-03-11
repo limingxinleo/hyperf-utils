@@ -39,7 +39,7 @@ class ElasticSearchTest extends AbstractTestCase
             'keyword' => 'Hyperf',
         ]);
 
-        $this->assertTrue($client->put($model));
+        $this->assertIsArray($client->put($model));
 
         $res = $client->client()->get([
             'index' => $client->index(),
@@ -62,7 +62,7 @@ class ElasticSearchTest extends AbstractTestCase
             'keyword' => ['Hyperf', 'Swoft'],
         ]);
 
-        $this->assertTrue($client->put($model));
+        $this->assertIsArray($client->put($model));
 
         $res = $client->client()->get([
             'index' => $client->index(),
