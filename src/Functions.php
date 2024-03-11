@@ -23,6 +23,7 @@ use Hyperf\Database\Model\Model;
 use Hyperf\HttpMessage\Uri\Uri;
 use Hyperf\Support\Optional;
 use Laminas\Stdlib\SplPriorityQueue;
+use Psr\Container\ContainerInterface;
 
 /**
  * @param mixed $object
@@ -59,7 +60,7 @@ function spl_sort($items, callable $callable): SplPriorityQueue
 /**
  * Finds an entry of the container by its identifier and returns it.
  * @param null|string $id
- * @return mixed|\Psr\Container\ContainerInterface
+ * @return ContainerInterface|mixed
  */
 function app($id = null)
 {

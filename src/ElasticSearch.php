@@ -112,11 +112,11 @@ abstract class ElasticSearch
     /**
      * 保存文档.
      */
-    public function put(Model $model)
+    public function put(Model $model): ?array
     {
         $doc = $this->document($model);
         $id = $model->getKey();
-
+        $result = null;
         try {
             $client = $this->client();
             $doc = [
@@ -130,23 +130,23 @@ abstract class ElasticSearch
                 'refresh' => true,
                 'retry_on_conflict' => 5,
             ];
-            $client->update($doc);
+            $result = $client->update($doc);
         } catch (\Throwable $ex) {
             $logger = $this->container->get(StdoutLoggerInterface::class);
             $logger->error((string) $ex);
         }
 
-        return true;
+        return $result;
     }
 
     /**
      * 删除文档.
      * @param mixed $id
      */
-    public function delete($id)
+    public function delete($id): ?array
     {
         $client = $this->client();
-
+        $result = null;
         $doc = [
             'index' => $this->index(),
             'type' => $this->type(),
@@ -154,13 +154,13 @@ abstract class ElasticSearch
         ];
 
         try {
-            $client->delete($doc);
+            $result = $client->delete($doc);
         } catch (\Throwable $ex) {
             $logger = $this->container->get(StdoutLoggerInterface::class);
             $logger->error((string) $ex);
         }
 
-        return true;
+        return $result;
     }
 
     public function search(array $body): array
