@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace HyperfTest\Cases;
 
+use Carbon\Carbon;
 use Han\Utils\Utils\Date;
 use HyperfTest\Stub\ContainerStub;
 
@@ -48,5 +49,8 @@ class DateTest extends AbstractTestCase
 
         $carbon = $util->load('1577836800');
         $this->assertSame(1577836800, $carbon->getTimestamp());
+
+        $carbon = $util->load(Carbon::make('2020-01-01 08:00:00'));
+        $this->assertSame('2020-01-01 08:00:00', $carbon->toDateTimeString());
     }
 }

@@ -17,10 +17,14 @@ use Carbon\Carbon;
 class Date
 {
     /**
-     * @param null|int|string $date
+     * @param null|Carbon|int|string $date
      */
     public function load($date): ?Carbon
     {
+        if ($date instanceof Carbon) {
+            return $date;
+        }
+
         if (is_numeric($date)) {
             return Carbon::createFromTimestamp($date);
         }
