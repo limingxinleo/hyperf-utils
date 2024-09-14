@@ -12,13 +12,20 @@ declare(strict_types=1);
 
 namespace Han\Utils\HTTP;
 
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\MessageFormatterInterface;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Promise\PromiseInterface;
 use Hyperf\Guzzle\RetryMiddleware;
 use Hyperf\Logger\LoggerFactory;
 
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use function Han\Utils\app;
+use GuzzleHttp\Promise as P;
 
 class Guzzle
 {
@@ -40,5 +47,52 @@ class Guzzle
         $stack->push($this->logMiddleware('http'), 'log');
 
         return $stack;
+    }
+
+    public function initRetryAndDurationMiddleware(HandlerStack $stack): HandlerStack
+    {
+        $stack->push($this->retryMiddleware(), 'retry');
+
+        $formatter = new MessageFormatter(MessageFormatter::DEBUG);
+
+        return static::log(app()->get(LoggerFactory::class)->get('http'), $formatter);
+    }
+
+    /**
+     * Middleware that logs requests, responses, and errors using a message
+     * formatter.
+     *
+     * @phpstan-param \Psr\Log\LogLevel::* $logLevel Level at which to log requests.
+     *
+     * @param LoggerInterface $logger Logs messages.
+     * @param MessageFormatterInterface $formatter Formatter used to create message strings.
+     * @param string $logLevel Level at which to log requests.
+     *
+     * @return callable Returns a function that accepts the next handler.
+     */
+    public static function log(LoggerInterface $logger, MessageFormatterInterface $formatter, string $logLevel = 'info'): callable
+    {
+        return static function (callable $handler) use ($logger, $formatter, $logLevel): callable {
+            return static function (RequestInterface $request, array $options = []) use ($handler, $logger, $formatter, $logLevel) {
+                $ms = microtime(true);
+                return $handler($request, $options)->then(
+                    static function ($response) use ($logger, $request, $formatter, $logLevel, $ms): ResponseInterface {
+                        $message = $formatter->format($request, $response);
+                        $logger->log($logLevel, $message, [
+                            'duration' => microtime(true) - $ms,
+                        ]);
+
+                        return $response;
+                    },
+                    static function ($reason) use ($logger, $request, $formatter): PromiseInterface {
+                        $response = $reason instanceof RequestException ? $reason->getResponse() : null;
+                        $message = $formatter->format($request, $response, P\Create::exceptionFor($reason));
+                        $logger->error($message);
+
+                        return P\Create::rejectionFor($reason);
+                    }
+                );
+            };
+        };
     }
 }
