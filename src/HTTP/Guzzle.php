@@ -17,15 +17,15 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\MessageFormatterInterface;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Promise as P;
 use GuzzleHttp\Promise\PromiseInterface;
 use Hyperf\Guzzle\RetryMiddleware;
 use Hyperf\Logger\LoggerFactory;
-
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+
 use function Han\Utils\app;
-use GuzzleHttp\Promise as P;
 
 class Guzzle
 {
@@ -54,8 +54,9 @@ class Guzzle
         $stack->push($this->retryMiddleware(), 'retry');
 
         $formatter = new MessageFormatter(MessageFormatter::DEBUG);
+        $stack->push(static::log(app()->get(LoggerFactory::class)->get('http'), $formatter));
 
-        return static::log(app()->get(LoggerFactory::class)->get('http'), $formatter);
+        return $stack;
     }
 
     /**
@@ -64,11 +65,11 @@ class Guzzle
      *
      * @phpstan-param \Psr\Log\LogLevel::* $logLevel Level at which to log requests.
      *
-     * @param LoggerInterface $logger Logs messages.
-     * @param MessageFormatterInterface $formatter Formatter used to create message strings.
-     * @param string $logLevel Level at which to log requests.
+     * @param LoggerInterface $logger logs messages
+     * @param MessageFormatterInterface $formatter formatter used to create message strings
+     * @param string $logLevel level at which to log requests
      *
-     * @return callable Returns a function that accepts the next handler.
+     * @return callable returns a function that accepts the next handler
      */
     public static function log(LoggerInterface $logger, MessageFormatterInterface $formatter, string $logLevel = 'info'): callable
     {

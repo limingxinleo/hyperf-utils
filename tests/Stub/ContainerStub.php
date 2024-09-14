@@ -21,6 +21,11 @@ use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Coroutine\Waiter;
 use Hyperf\Framework\Logger\StdoutLogger;
+use Hyperf\Guzzle\RetryMiddleware;
+use Hyperf\Logger\LoggerFactory;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Level;
 use Psr\Container\ContainerInterface;
 
 class ContainerStub
@@ -36,6 +41,26 @@ class ContainerStub
                     'host' => ['127.0.0.1:9200'],
                 ],
             ],
+            'logger' => [
+                'default' => [
+                    'handler' => [
+                        'class' => StreamHandler::class,
+                        'constructor' => [
+                            'stream' => __DIR__ . '/../../utils.log',
+                            // 'stream' => 'php://output',
+                            'level' => Level::Info,
+                        ],
+                    ],
+                    'formatter' => [
+                        'class' => LineFormatter::class,
+                        'constructor' => [
+                            'format' => null,
+                            'dateFormat' => 'Y-m-d H:i:s',
+                            'allowInlineLineBreaks' => true,
+                        ],
+                    ],
+                ],
+            ],
         ]);
         $container->shouldReceive('get')->with(ConfigInterface::class)->andReturn($config);
         $container->shouldReceive('get')->with(StdoutLoggerInterface::class)->andReturn(new StdoutLogger($config));
@@ -43,6 +68,8 @@ class ContainerStub
         $container->shouldReceive('get')->with(Model::class)->andReturn(new Model());
         $container->shouldReceive('get')->with(Sorter::class)->andReturn(new Sorter());
         $container->shouldReceive('get')->with(Waiter::class)->andReturn(new Waiter());
+        $container->shouldReceive('get')->with(RetryMiddleware::class)->andReturn(new RetryMiddleware());
+        $container->shouldReceive('get')->with(LoggerFactory::class)->andReturn(new LoggerFactory($container, $config));
 
         return $container;
     }
