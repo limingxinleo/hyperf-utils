@@ -19,6 +19,7 @@ use Han\Utils\Utils\Date;
 use Han\Utils\Utils\Sorter;
 use Hyperf\Collection\Arr;
 use Hyperf\Context\ApplicationContext;
+use Hyperf\Context\RequestContext;
 use Hyperf\Database\Model\Model;
 use Hyperf\HttpMessage\Uri\Uri;
 use Hyperf\Support\Optional;
@@ -165,4 +166,23 @@ function is_continuous(array $array): Continuous
     }
 
     return new Continuous(true, $min, $max);
+}
+
+function get_user_ip(string $default = ''): string
+{
+    $request = RequestContext::getOrNull();
+    if (! $request) {
+        return $default;
+    }
+
+    $ip = $request->getHeaderLine('x-forwarded-for');
+    if (! empty($ip)) {
+        $ip = trim(explode(',', $p)[0] ?? '');
+    }
+
+    if (! $ip) {
+        $ip = $request->getHeaderLine('x-real-ip');
+    }
+
+    return $ip ?: $default;
 }
