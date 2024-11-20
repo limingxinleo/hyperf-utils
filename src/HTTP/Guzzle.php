@@ -19,7 +19,6 @@ use GuzzleHttp\MessageFormatterInterface;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise as P;
 use GuzzleHttp\Promise\PromiseInterface;
-use Hyperf\Guzzle\RetryMiddleware;
 use Hyperf\Logger\LoggerFactory;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
