@@ -35,14 +35,14 @@ class Guzzle
         return Middleware::log(app()->get(LoggerFactory::class)->get($name), $formatter);
     }
 
-    public function retryMiddleware(): callable
+    public function retryMiddleware(?string $name = null): callable
     {
-        return app()->get(RetryMiddleware::class)->getMiddleware();
+        return app()->get(RetryMiddleware::class)->getMiddleware($name);
     }
 
     public function initMiddlewares(HandlerStack $stack): HandlerStack
     {
-        $stack->push($this->retryMiddleware(), 'retry');
+        $stack->push($this->retryMiddleware('http'), 'retry');
         $stack->push($this->logMiddleware('http'), 'log');
 
         return $stack;
@@ -50,7 +50,7 @@ class Guzzle
 
     public function initRetryAndDurationMiddleware(HandlerStack $stack): HandlerStack
     {
-        $stack->push($this->retryMiddleware(), 'retry');
+        $stack->push($this->retryMiddleware('name'), 'retry');
 
         $formatter = new MessageFormatter(MessageFormatter::DEBUG);
         $stack->push(static::log(app()->get(LoggerFactory::class)->get('http'), $formatter));
