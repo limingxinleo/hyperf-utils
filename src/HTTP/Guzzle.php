@@ -23,6 +23,7 @@ use Hyperf\Logger\LoggerFactory;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 use function Han\Utils\app;
 
@@ -62,7 +63,7 @@ class Guzzle
      * Middleware that logs requests, responses, and errors using a message
      * formatter.
      *
-     * @phpstan-param \Psr\Log\LogLevel::* $logLevel Level at which to log requests.
+     * @phpstan-param LogLevel::* $logLevel Level at which to log requests.
      *
      * @param LoggerInterface $logger logs messages
      * @param MessageFormatterInterface $formatter formatter used to create message strings
