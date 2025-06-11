@@ -17,6 +17,7 @@ use Elasticsearch\ClientBuilder;
 use Han\Utils\Exception\InvalidArgumentException;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
+use Hyperf\Database\Model\Collection;
 use Hyperf\Database\Model\Model;
 use Hyperf\Guzzle\RingPHP\PoolHandler;
 use JetBrains\PhpStorm\ArrayShape;
@@ -120,10 +121,49 @@ abstract class Search7
                 'refresh' => true,
                 'retry_on_conflict' => 5,
             ];
+
             $result = $client->update($doc);
         } catch (\Throwable $ex) {
             $logger = $this->container->get(StdoutLoggerInterface::class);
             $logger->error((string) $ex);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param Collection<int, Model> $models
+     */
+    public function bulk(Collection $models): ?array
+    {
+        $result = null;
+
+        try {
+            $client = $this->client();
+
+            $params = [
+                'body' => [],
+                'refresh' => 'wait_for',
+                'retry_on_conflict' => 3, // 所有操作都使用这个重试次数
+            ];
+
+            foreach ($models as $model) {
+                $params['body'][] = [
+                    'update' => [
+                        '_index' => $this->index(),
+                        '_id' => $model->getKey(),
+                    ],
+                ];
+
+                $params['body'][] = [
+                    'doc' => $this->document($model),
+                    'doc_as_upsert' => true,
+                ];
+            }
+
+            $result = $client->bulk($params);
+        } catch (\Throwable $exception) {
+            $this->container->get(StdoutLoggerInterface::class)->error((string) $exception);
         }
 
         return $result;
