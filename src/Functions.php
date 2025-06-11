@@ -177,7 +177,7 @@ function get_user_ip(string $default = ''): string
 
     $ip = $request->getHeaderLine('x-forwarded-for');
     if (! empty($ip)) {
-        $ip = trim(explode(',', $p)[0] ?? '');
+        $ip = trim(explode(',', $ip)[0] ?? '');
     }
 
     if (! $ip) {
