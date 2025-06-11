@@ -144,7 +144,6 @@ abstract class Search7
             $params = [
                 'body' => [],
                 'refresh' => 'wait_for',
-                'retry_on_conflict' => 3, // 所有操作都使用这个重试次数
             ];
 
             foreach ($models as $model) {

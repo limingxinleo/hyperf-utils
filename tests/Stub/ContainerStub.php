@@ -40,6 +40,9 @@ class ContainerStub
                 'default' => [
                     'host' => ['127.0.0.1:9200'],
                 ],
+                'es7' => [
+                    'host' => ['127.0.0.1:9200'],
+                ],
             ],
             'logger' => [
                 'default' => [

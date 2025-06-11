@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        php-version: [ '8.0', '8.1', '8.2', '8.3' ]
+        php-version: [ '8.1', '8.2', '8.3', '8.4' ]
       max-parallel: 5
     steps:
       - name: Checkout
@@ -25,6 +25,7 @@ jobs:
       - name: Setup Services
         run: |
           docker run -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" --name elasticsearch elasticsearch:5-alpine
+          docker run -d -p 19200:9200 -p 19300:9300 -e "discovery.type=single-node" --name elasticsearch elasticsearch:7-alpine
           sleep 5
       - name: Setup Packages
         run: composer update -o --no-scripts

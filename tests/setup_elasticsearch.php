@@ -12,6 +12,7 @@ declare(strict_types=1);
 require_once 'bootstrap.php';
 
 use HyperfTest\Stub\ContainerStub;
+use HyperfTest\Stub\DataElasticSearch7Stub;
 use HyperfTest\Stub\DataElasticSearchStub;
 
 use function Hyperf\Coroutine\run;
@@ -19,6 +20,10 @@ use function Hyperf\Coroutine\run;
 $callback = function () {
     $container = ContainerStub::getContainer();
     $client = new DataElasticSearchStub($container);
+    $client->putIndex(true);
+    $client->putMapping();
+
+    $client = new DataElasticSearch7Stub($container);
     $client->putIndex(true);
     $client->putMapping();
 
