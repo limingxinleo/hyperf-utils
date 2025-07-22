@@ -74,6 +74,7 @@ class ContainerStub
         $container->shouldReceive('get')->with(Waiter::class)->andReturn(new Waiter());
         $container->shouldReceive('get')->with(RetryMiddleware::class)->andReturn(new RetryMiddleware());
         $container->shouldReceive('get')->with(LoggerFactory::class)->andReturn(new LoggerFactory($container, $config));
+        $container->shouldReceive('get')->with(\Han\Utils\HTTP\RetryMiddleware::class)->andReturn(new \Han\Utils\HTTP\RetryMiddleware());
 
         return $container;
     }

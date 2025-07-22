@@ -22,7 +22,7 @@
         }
     },
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "hyperf/collection": "^3.0",
         "hyperf/context": "^3.0",
         "jetbrains/phpstorm-attributes": "^1.0",
