@@ -53,4 +53,19 @@ class DateTest extends AbstractTestCase
         $carbon = $util->load(Carbon::make('2020-01-01 08:00:00'));
         $this->assertSame('2020-01-01 08:00:00', $carbon->toDateTimeString());
     }
+
+    public function testCreateFromTimestamp()
+    {
+        $timezone = date_default_timezone_get();
+        try {
+            date_default_timezone_set('Asia/Shanghai');
+
+            $t1 = Carbon::make('2025-07-22');
+            $t2 = Carbon::createFromTimestamp($t1->getTimestamp(), date_default_timezone_get());
+
+            $this->assertSame($t1->toDateTimeString(), $t2->toDateTimeString());
+        } finally {
+            date_default_timezone_set($timezone);
+        }
+    }
 }
