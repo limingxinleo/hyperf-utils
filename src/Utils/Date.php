@@ -26,7 +26,7 @@ class Date
         }
 
         if (is_numeric($date)) {
-            return Carbon::createFromTimestamp($date);
+            return Carbon::createFromTimestamp($date, date_default_timezone_get());
         }
 
         return Carbon::make($date);
