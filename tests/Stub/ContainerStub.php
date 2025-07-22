@@ -26,6 +26,7 @@ use Hyperf\Logger\LoggerFactory;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
+use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 
 class ContainerStub
@@ -51,7 +52,7 @@ class ContainerStub
                         'constructor' => [
                             'stream' => __DIR__ . '/../../utils.log',
                             // 'stream' => 'php://output',
-                            'level' => Level::Info,
+                            'level' => enum_exists(Level::class) ? Level::Info : Logger::INFO,
                         ],
                     ],
                     'formatter' => [
