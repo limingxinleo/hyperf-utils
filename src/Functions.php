@@ -100,6 +100,14 @@ function safe_path(string $path): string
     return $path;
 }
 
+function safe_execute(callable $callable)
+{
+    try {
+        $callable();
+    } catch (\Throwable) {
+    }
+}
+
 /**
  * 判断模型是否被修改过.
  * @param array $expect 被排除检测的 key 列表
